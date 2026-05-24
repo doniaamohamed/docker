@@ -1,0 +1,100 @@
+# Task 1
+```bash
+docker run hello-world
+docker ps -a
+
+docker start 8f3d2c1b9a7e
+docker stop 8f3d2c1b9a7e
+
+docker rm 8f3d2c1b9a7e
+
+docker rmi hello-world
+docker images
+```
+
+# Task 2
+```bash
+docker run -it --name ubuntu-lab ubuntu bash
+
+echo docker
+touch hello-docker
+ls -la hello-docker
+
+exit
+
+docker stop ubuntu-lab
+docker rm ubuntu-lab
+
+docker container prune
+
+docker ps -a
+```
+
+# Task 3
+```bash
+docker run \
+  --name app-database \
+  -e MYSQL_ROOT_PASSWORD=P4sSw0rd0! \
+  -d \
+  mysql:latest
+
+docker ps
+
+docker logs app-database
+```
+
+# Task 4
+```bash
+docker run -d -p 8080:80 --name nginx-lab nginx
+
+docker ps
+
+docker cp index.html nginx-lab:/usr/share/nginx/html/index.html
+
+docker exec nginx-lab ls /usr/share/nginx/html/
+
+docker commit nginx-lab nginx-custom:v1
+
+docker images nginx-custom
+
+docker stop nginx-lab
+docker rm nginx-lab
+
+docker run -d -p 8080:80 --name nginx-committed nginx-custom:v1
+```
+
+# Task 5
+
+### Dockerfile
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py .
+
+EXPOSE 5000
+
+ENTRYPOINT ["python"]
+CMD ["app.py"]
+```
+
+### Commands
+```bash
+cd problem5/app
+
+docker build -t donia/flask-demo:slim .
+
+docker images
+
+docker run -d \
+  -p 5000:5000 \
+  --name flask-test \
+  donia/flask-demo:slim
+
+docker push donia123/flask-demo:slim
+```

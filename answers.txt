@@ -6,3 +6,5 @@ CMD gives default arguments or commands while ENTRYPOINT defines the main comman
 COPY & ADD:
 COPY is used to copy files and folders from the local machine into the container
 ADD does the same thing as COPY, but it also supports:downloading files from URLs,extracting compressed tar files automatically
+
+,,
